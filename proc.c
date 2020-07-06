@@ -532,3 +532,22 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int rinfo(void){
+  struct proc *p;
+  acquire(&ptable.lock);
+
+
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    {
+      if(p->state == RUNNING || p->state == RUNNABLE ){
+        struct  proc_info p_info;
+
+
+        
+      }
+      
+    }
+  return 1;
+  release(&ptable.lock);
+}
