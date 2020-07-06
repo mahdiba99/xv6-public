@@ -89,3 +89,12 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// return the number of the pointer of target array
+
+int
+sys_rinfo(void)
+{
+  return rinfo();
+}
+
