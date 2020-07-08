@@ -533,21 +533,43 @@ procdump(void)
   }
 }
 
-int rinfo(void){
-  struct proc *p;
+void 
+rinfo(void)
+{
+  static struct proc_info allproc[NPROC];
   acquire(&ptable.lock);
-
-
+  struct proc *p;
+  int pnumber = 0;
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
     {
       if(p->state == RUNNING || p->state == RUNNABLE ){
-        struct  proc_info p_info;
-
-
-        
+        allproc[pnumber].pid = p->pid;
+        allproc[pnumber].memsize = p->sz;       
       }
-      
+    pnumber++;
     }
-  return 1;
+  
+  /// sort the proccesses by the mem size ascending
+  struct proc_info temp;
+  for (int i = 0; i <= pnumber ; i++)
+  {
+    for (int j = 0; j <= pnumber - i; j++)
+    {
+      if(allproc[j].memsize > allproc[j+1].memsize){
+        temp = allproc[j];
+        allproc[j] = allproc[j+1];
+        allproc[j+1] = temp;
+      }
+    }
+  }
+
+  ///show the proccesses
+  for(int i = 0; i< pnumber; i++)
+  {
+    cprintf("pid: %d, size: %d \n",allproc[i].pid, allproc[i].memsize);
+  }
+  cprintf("forked\n");
   release(&ptable.lock);
+  
+  
 }
