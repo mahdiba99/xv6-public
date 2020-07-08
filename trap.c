@@ -53,6 +53,14 @@ trap(struct trapframe *tf)
       ticks++;
       wakeup(&ticks);
       release(&tickslock);
+    if(myproc()){
+        if(myproc()->state == RUNNING){
+          myproc()->rtime += 1;
+        }
+        else if(myproc()->state == SLEEPING){
+          myproc()->iotime += 1;
+        }
+      }
     }
     lapiceoi();
     break;
@@ -105,7 +113,6 @@ trap(struct trapframe *tf)
   if(myproc() && myproc()->state == RUNNING &&
      tf->trapno == T_IRQ0+IRQ_TIMER)
     yield();
-
   // Check if the process has been killed since we yielded
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
     exit();
