@@ -92,7 +92,7 @@ sys_uptime(void)
 
 // return the number of the pointer of target array
 
-int
+void
 sys_rinfo(void)
 {
   return rinfo();
