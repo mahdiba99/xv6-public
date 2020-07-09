@@ -24,6 +24,8 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int waitx(int*, int*);
+int pshow(void);
+int set_pri(int value);
 
 // ulib.c
 int stat(const char*, struct stat*);

@@ -182,6 +182,9 @@ UPROGS=\
 	_wc\
 	_zombie\
 	_test_waitx\
+	_pshow\
+	_set_pri\
+
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -255,7 +258,10 @@ EXTRA=\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
 	test_waitx.c\
-	
+	pshow.c\
+	set_pri.c\
+	testPBS.c\
+
 dist:
 	rm -rf dist
 	mkdir dist

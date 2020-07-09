@@ -104,3 +104,19 @@ sys_waitx(void)
 
   return waitx(wtime, rtime);
 }
+
+int
+sys_pshow(void)
+{
+  return pshow();
+}
+
+int 
+sys_set_pri(void)
+{
+  int value;
+  if (argint(0, &value) < 0){
+    return -1;
+  }
+  return set_pri(value);
+}
